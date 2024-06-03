@@ -3,7 +3,7 @@ import Controller.Factura;
 import Controller.Persona;
 import java.util.ArrayList;
 import java.util.Random;
-public class Ejecutor {
+public class EjecutorBorrador {
 
     public static void main(String[] args) {
         ArrayList<Persona> personas = new ArrayList<>();
