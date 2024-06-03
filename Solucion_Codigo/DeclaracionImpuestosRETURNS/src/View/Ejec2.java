@@ -2,6 +2,7 @@ package view;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Random;
 import Controller.*;
 import Controller.Factura;
@@ -10,33 +11,61 @@ public class Ejec2 {
 
     public static void main(String[] args) {
         // Generar archivo de facturas
-          // Generar archivo de facturas
         ArrayList<Factura> tempFacturas = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Factura fac = new Factura(generarCategorias(),generarGasto(),generarDireccion());
-            
-            fac.escribirADat();
-        }
-        //
-        ArrayList<Persona> personas = new ArrayList<>();
+        int numFact = 0;
+        boolean continuar = true;
+        Scanner in = new Scanner(System.in);
+        int mes = 0;
 
-        for (int i = 0; i < 10; i++) { // Cambia 10 a la cantidad de Personas que quieras crear
+        ArrayList<Persona> personas = new ArrayList<>();
+        do {
+            // Cambia 10 a la cantidad de Personas que quieras crear
             Persona persona = new Persona(generarNombres());
+            persona.setSueldoMensual(generarSueldo(), mes);
             personas.add(persona);
-        }
+            mes++;
+            System.out.println("¿Desea ingresar otra persona? (Si / No)");
+            if (!in.next().equalsIgnoreCase("Si")) { //nextLine
+                continuar = false;
+                break;
+            }
+        } while (continuar);
+
+        do {
+            System.out.println("Ingrese los datos de la factura:");
+            Factura fac = new Factura(generarCategorias(), generarGasto(), generarDireccion());
+
+            fac.escribirPorPrimeraVez(numFact);
+
+            numFact++;
+            System.out.println("¿Desea ingresar otra factura? (Si / No)");
+            if (!in.next().equalsIgnoreCase("Si")) { //nextLine
+                continuar = false;
+                break;
+            }
+        } while (continuar);
+        // una vez  el usuario ingreso n facturas, estan son estaticas.
+        //Factura[] facturas = new Factura[tempFacturas.size()]; 
+        //facturas = tempFacturas.toArray(facturas);
+        //
 
         try {
-            // Leer facturas desde un archivo .dat
-            ObjectInputStream oisFacturas = new ObjectInputStream(new FileInputStream("facturas.dat"));
-            ArrayList<Factura> facturas = (ArrayList<Factura>) oisFacturas.readObject();
-            oisFacturas.close();
 
             // Asignar facturas a cada persona
             for (Persona persona : personas) {
-                for (Factura factura : facturas) {
-                    persona.setFactura(factura);
-                }
+                persona.setFacturasDesdeObjeto();
                 //persona.setSueldoMensual(3000.0, 0);
+            }
+            for (Persona persona : personas) {
+                
+            }
+            
+            // verificar ingresos y deducciones
+            for (Persona persona : personas) {
+                if (totalIngresos < 0 || totalDeducciones < 0) {
+                    System.out.println("Los ingresos y las deducciones no pueden ser negativos.");
+                    return;
+                }
             }
 
             // Escribir el reporte de cada persona a un archivo .dat
@@ -53,10 +82,10 @@ public class Ejec2 {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    
+
     }
 
-    // METODOS AUTOGENERADORES
+// METODOS AUTOGENERADORES
     public static String generarNombres() {
         Random random = new Random();
         String[] nombres = {"Juan Pablo Landi", "Marco Abarca", "Juan Diego Guerrero", "Ricardo Espinosa", "Alejandro Alvarrez", "David Velez", "Daniel Bustamante", "Nicolas Gallegos", "Miguel Valverde", "Xavier Gonzales"};
@@ -69,6 +98,7 @@ public class Ejec2 {
         sueldo = 500 + (1500 - 500) * random.nextDouble();
         return sueldo;
     }
+
     public static double generarGasto() {
         Random random = new Random();
         double sueldo;
@@ -78,9 +108,10 @@ public class Ejec2 {
 
     public static String generarCategorias() {
         Random random = new Random();
-        String[] categorias = {"Alimentacion","Vivienda","Educacion","Salud","Turismo"};
+        String[] categorias = {"Alimentacion", "Vivienda", "Educacion", "Salud", "Turismo"};
         return categorias[random.nextInt(5)];
     }
+
     public static String generarDireccion() {
         Random random = new Random();
         String[] direcciones = {"Loja", "El oro", "Quito", "Cuenca", "Guayaquil", "Zapotillo", "Ambato", "Manabí", "Esmeraldas", "Zamora"};

@@ -8,26 +8,31 @@ import java.util.ArrayList;
 
 public class EscribirFactura {
 
+    String categorias;
+    double monto;
+    String direccion;
+    int facturaActual; // contador de facturas
+    
     ObjectOutputStream writeFactura; // Clase para escribir objetos
 
     FileOutputStream path; // Clase para obtener ruta de archivos
 
     ArrayList<Factura> facturas;
-
-    public EscribirFactura(ObjectOutputStream writeEmpleado, FileOutputStream path, ArrayList<Factura> facturas) {
-        this.path = path;
-        this.facturas = facturas;
+    Factura facturaTemp;
+    
+//ObjectOutputStream writeFactura
+    public EscribirFactura(Factura factu, int facturaActual) {
+        this.facturaTemp=factu;
+        this.facturaActual=facturaActual;
+        
     }
 
     public void escribirFacturasa() {
 
-        try {
-
-            this.writeFactura = new ObjectOutputStream(path);
-
-            for (Factura fac : facturas) {
-                writeFactura.writeObject(fac);
-            }
+        try(FileOutputStream fos = new FileOutputStream("Factura Contribuyente"+facturaActual+".dat");
+                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(facturaTemp);
+            oos.close();
         } catch (Exception e) {
         }
 

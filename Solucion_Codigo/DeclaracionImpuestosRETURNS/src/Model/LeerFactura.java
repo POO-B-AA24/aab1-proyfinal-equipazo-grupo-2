@@ -7,12 +7,32 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 public class LeerFactura {
+    
     public ArrayList<Factura> listFacturas;
     public ObjectInputStream leerFactura;
     public FileInputStream archivasoPath;
+    public Factura factura;
+    
     public LeerFactura(FileInputStream archivasoPath) { // Bob El constructor: Ahora no es necesario inicializar el array. 
         this.archivasoPath = archivasoPath;
     }
+
+ 
+    public Factura leerFacturasa(){
+        try {
+            leerFactura = new ObjectInputStream(archivasoPath);
+
+                factura = (Factura) leerFactura.readObject(); // Deserializado desde aqui 
+                leerFactura.close();
+        } catch (EOFException error) { // Este metodo acaba el ciclo, es un hotfix o workaround temporal.
+            
+            return factura; // Fin del archivo, devuelve la factura
+        } catch (Exception e) {
+
+        } 
+        return factura; 
+    }
+    
     public ArrayList<Factura> leerSerial() {
 
         listFacturas = new ArrayList<Factura>();
@@ -29,7 +49,7 @@ public class LeerFactura {
         } catch (Exception e) {
 
         } 
-        return listFacturas; // Por defecto hay q colcar esto. Pero no es correcto supongo
+        return listFacturas; 
     }
 
 }
