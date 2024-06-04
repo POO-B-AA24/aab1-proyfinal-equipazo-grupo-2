@@ -29,8 +29,17 @@ public class Factura implements Serializable {
     public void setMonto(double monto) {
         this.monto = monto;
     }
+
+    public String toString(int i) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Factura #"+i);
+        sb.append("\ncategoria=").append(categoria);
+        sb.append("\n monto=").append(monto);
+        sb.append('}');
+        return sb.toString();
+    }
     
- 
+    
 
    
 

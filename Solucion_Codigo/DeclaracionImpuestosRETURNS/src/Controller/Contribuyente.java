@@ -1,6 +1,5 @@
 package Controller;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -28,9 +27,6 @@ public class Contribuyente implements Serializable {
         this.cedula = cedula;
     }
 
-
-
-    
     public void calcularImpuestos() {
         double totalSueldos = 0;
         for (double sueldo : sueldosMensuales) {
@@ -63,12 +59,12 @@ public class Contribuyente implements Serializable {
 
         this.totalIngresosAnuales = totalSueldos * 12;
         this.totalDeduccionesAnuales = totalDeducciones * 12;
-        
+
         this.refund = (this.totalIngresosAnuales - this.totalDeduccionesAnuales < 0) ? Math.abs(this.totalIngresosAnuales - this.totalDeduccionesAnuales) : 0;
         // Le hacemos un retorno si esq su base imponible es negativa (es decir sus deducciones son mayores a sus ingresos)
-        
-        this.retornoInversor=this.dividend * dividendTaxRate;
-        
+
+        this.retornoInversor = this.dividend * dividendTaxRate;
+
         // Calcular impuestos según la tabla de impuestos del 2023
         if (totalIngresosAnuales <= 11722) {
             this.impuestos = 0;
@@ -98,8 +94,8 @@ public class Contribuyente implements Serializable {
     public void generarReporteImpuestos() {
         this.reporte = "Reporte de impuestos:\n"
                 + "Estimado/a " + this.name + "\n"
-                + "Direccion: "+this.direccion+"\n"
-                + "Cedula: "+this.cedula+"\n"
+                + "Direccion: " + this.direccion + "\n"
+                + "Cedula: " + this.cedula + "\n"
                 + "Total de ingresos: " + this.totalIngresosAnuales + "\n"
                 + "Total de deducciones: " + this.totalDeduccionesAnuales + "\n"
                 + "-------------------------------------------------\n"
@@ -107,11 +103,11 @@ public class Contribuyente implements Serializable {
                 + "*\n"
                 + "-------------------------------------------------\n"
                 + "Informacion adicional (Contempla Empleados, Inversores y Reembolsos):\n"
-                + "Aporte al IESS:\n" + totalIngresosAnuales * 0.1145+"\n" // El aporte el iess es del 11.45% para personas normales
-                + "Credito tributario o devolucion (por dividendos Corporativos, para Inversor):\n"+this.retornoInversor+"\n"
-                + "Devolucion por Excedente de impuestos: (Ingresos netos negativos para persona Natural):\n"+ this.refund+"\n"
-                + "-------------------------------------------------"+"\n"
-                + "Total de Impuesto a pagar: $" + (this.impuestosAPagar-this.refund-this.retornoInversor-totalIngresosAnuales * 0.1145);
+                + "Aporte al IESS:\n" + totalIngresosAnuales * 0.1145 + "\n" // El aporte el iess es del 11.45% para personas normales
+                + "Credito tributario o devolucion (por dividendos Corporativos, para Inversor):\n" + this.retornoInversor + "\n"
+                + "Devolucion por Excedente de impuestos: (Ingresos netos negativos para persona Natural):\n" + this.refund + "\n"
+                + "-------------------------------------------------" + "\n"
+                + "Total de Impuesto a pagar: $" + (this.impuestosAPagar - this.refund - this.retornoInversor - totalIngresosAnuales * 0.1145);
     }
 
     public String getName() {
@@ -145,8 +141,30 @@ public class Contribuyente implements Serializable {
     public void setDividend(double dividend) {
         this.dividend = dividend;
     }
+
     public void setDividendTaxRate(double dividend) {
         this.dividendTaxRate = dividend;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Contribuyente{");
+        sb.append("Nombre=").append(name);
+        sb.append("\n Sueldos Mensuales:\n {");
+        for (double sueldosMensuale : sueldosMensuales) {
+            sb.append(sueldosMensuale).append(",");
+        }
+        sb.append("}\n Facturas=:\n{");
+        int i=1;
+        for (Factura facs : facturas) {
+            sb.append(facs.toString(i)).append("\n");
+            i++;
+        }
+        
+        sb.append("\n}, Reporte de impuestos={").append(reporte);
+
+        sb.append("}\n*************");
+        return sb.toString();
     }
 
 }
