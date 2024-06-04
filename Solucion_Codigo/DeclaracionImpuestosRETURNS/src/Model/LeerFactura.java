@@ -2,54 +2,34 @@
 // ál metodaso MAIN:¨writeFactura.close();
 package Model;
 import Controller.*;
-import java.io.EOFException;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
-public class LeerFactura {
-    
+public class LeerFactura implements Serializable{
     public ArrayList<Factura> listFacturas;
     public ObjectInputStream leerFactura;
     public FileInputStream archivasoPath;
-    public Factura factura;
     
-    public LeerFactura(FileInputStream archivasoPath) { // Bob El constructor: Ahora no es necesario inicializar el array. 
-        this.archivasoPath = archivasoPath;
-    }
-
- 
-    public Factura leerFacturasa(){
-        try {
-            leerFactura = new ObjectInputStream(archivasoPath);
-
-                factura = (Factura) leerFactura.readObject(); // Deserializado desde aqui 
-                leerFactura.close();
-        } catch (EOFException error) { // Este metodo acaba el ciclo, es un hotfix o workaround temporal.
-            
-            return factura; // Fin del archivo, devuelve la factura
-        } catch (Exception e) {
-
-        } 
-        return factura; 
+    public LeerFactura() { // Bob El constructor: Ahora no es necesario inicializar el array. 
+        //this.archivasoPath = archivasoPath;
     }
     
-    public ArrayList<Factura> leerSerial() {
-
-        listFacturas = new ArrayList<Factura>();
+     public ArrayList<Factura> leerFacturasDeArchivo(String nombreArchivo) {
         try {
-            leerFactura = new ObjectInputStream(archivasoPath);
-
-            while (true) { // Leemos no con for. Sino con un ciclo que desconoce la cantidad de objetos. BUSCAR UN METODO MAS EFICIENTE PARA FRENAR EL CICLO
-                listFacturas.add((Factura) leerFactura.readObject()); // Deserializado desde aqui 
-            }
-
-        } catch (EOFException error) { // Este metodo acaba el ciclo, es un hotfix o workaround temporal.
-
-            return listFacturas; // Fin del archivo, devuelve la lista
-        } catch (Exception e) {
-
-        } 
-        return listFacturas; 
+            FileInputStream fileIn = new FileInputStream(nombreArchivo);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            ArrayList<Factura> facturas = (ArrayList<Factura>) in.readObject();
+            in.close();
+            fileIn.close();
+            System.out.println("Facturas leídas de " + nombreArchivo);
+            return facturas;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
+
 
 }
