@@ -23,7 +23,7 @@ public class LeerFactura implements Serializable{
             ArrayList<Factura> facturas = (ArrayList<Factura>) in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("Facturas leídas de " + nombreArchivo);
+            
             return facturas;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

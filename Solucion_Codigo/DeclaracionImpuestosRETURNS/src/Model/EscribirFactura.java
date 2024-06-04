@@ -26,7 +26,6 @@ public class EscribirFactura implements Serializable{
             out.writeObject(this.facturas);
             out.close();
             fileOut.close();
-            System.out.println("Factura guardada en " + nombreArchivo);
         } catch (IOException e) {
             e.printStackTrace();
         }

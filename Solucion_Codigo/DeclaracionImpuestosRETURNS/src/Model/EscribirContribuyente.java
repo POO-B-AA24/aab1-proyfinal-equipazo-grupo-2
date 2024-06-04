@@ -25,7 +25,7 @@ public class EscribirContribuyente  {
             out.writeObject(this.usuarito);
             out.close();
             fileOut.close();
-            System.out.println("Usuario guardado en " + nombreArchivo);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

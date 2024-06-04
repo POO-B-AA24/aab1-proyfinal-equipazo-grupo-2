@@ -22,7 +22,7 @@ public class LeerContribuyente {
             Contribuyente contrib = (Contribuyente) in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("Contribuyente con su reporte leido desde " + nombreArchivo);
+            
             return contrib;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

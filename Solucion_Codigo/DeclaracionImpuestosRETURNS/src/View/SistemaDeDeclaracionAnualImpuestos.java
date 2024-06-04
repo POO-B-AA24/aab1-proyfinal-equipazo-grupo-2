@@ -16,9 +16,9 @@ public class SistemaDeDeclaracionAnualImpuestos implements Serializable {
         // contadores y condicionales para crear varios contribuyentes
         Random r = new Random();
         int i = 0;
-        boolean continuar=true;
-        Scanner in = new Scanner (System.in);
-        
+        boolean continuar = true;
+        Scanner in = new Scanner(System.in);
+
         do {
 
             ArrayList<Factura> facturas = new ArrayList<>();
@@ -33,9 +33,12 @@ public class SistemaDeDeclaracionAnualImpuestos implements Serializable {
             Contribuyente usuario = new Contribuyente(generarNombres(), generarSueldosDeUnAnio(), generarDireccion(), generarCedulas()); // El usuario nos da sueldo anual. Asi no tiene que molestarse con colocar cada elemento de sueldo mensual
             EscribirFactura veEscribe = new EscribirFactura(facturas);
             veEscribe.guardarFacturasEnArchivo("factura" + i + "-" + usuario.getName() + ".dat");
+            System.out.println("Factura guardada en " + "factura" + i + "-" + usuario.getName() + ".dat");
+
             // leer facturas
             LeerFactura veLee = new LeerFactura();
             ArrayList<Factura> facturasLeidas = veLee.leerFacturasDeArchivo("factura" + i + "-" + usuario.getName() + ".dat");
+            System.out.println("Facturas leídas de " + "factura" + i + "-" + usuario.getName() + ".dat");
             usuario.setFacturas(facturasLeidas);
             // calcular impuestos
             obtieneDividendos = r.nextBoolean();
@@ -48,6 +51,7 @@ public class SistemaDeDeclaracionAnualImpuestos implements Serializable {
             usuario.generarReporteImpuestos();
             EscribirContribuyente guardarContrib = new EscribirContribuyente(usuario);
             guardarContrib.guardarUsuarioEnArchivo(usuario.getName() + ".dat"); // escribimos contribuyente con su respectivo reporte
+            System.out.println("Usuario guardado en " + usuario.getName() + ".dat");
             usuarios.add(usuario);
             // resumen: Facturas son Autogeneradas , luego Leidas y bajo demanda Escritas.
             i++;
@@ -57,14 +61,15 @@ public class SistemaDeDeclaracionAnualImpuestos implements Serializable {
                 break;
             }
         } while (continuar);
-        
+
         // resumen : // Contribuyentes son: Escritos, luego Leidos
         ArrayList<Contribuyente> clientes = new ArrayList<>();
         for (int d = 0; d < i; d++) {
             LeerContribuyente leeContrib = new LeerContribuyente();
             clientes.add(leeContrib.leerUsuarioDesdeArchivo(usuarios.get(d).getName() + ".dat"));
+            System.out.println("Contribuyente con su reporte leido desde " + usuarios.get(d).getName() + ".dat");
             System.out.println(clientes.get(d).toString()); // Reporte completaso y personalizado con cada factura que tiene un contribuyente (para nuestro caso empezamos con 5 facturas dentro de un archivo para cada contribuyente.
-            
+
         }
     }
 
@@ -99,7 +104,7 @@ public class SistemaDeDeclaracionAnualImpuestos implements Serializable {
     public static double generarGasto() {
         Random random = new Random();
         double gasto;
-        gasto = random.nextDouble(100,500)+1;
+        gasto = random.nextDouble(100, 500) + 1;
         return gasto;
     }
 
