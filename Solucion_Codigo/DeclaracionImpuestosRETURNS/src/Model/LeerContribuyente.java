@@ -8,7 +8,7 @@ import java.io.ObjectInputStream;
 
 
 public class LeerContribuyente {
-    public Contribuyente contribuyentes;
+    private Contribuyente contribuyentes;
   
     
     public LeerContribuyente() { // Bob El constructor: Ahora no es necesario inicializar el array. 

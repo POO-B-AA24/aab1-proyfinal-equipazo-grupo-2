@@ -1,6 +1,5 @@
 package View;
 
-import java.io.*;
 import java.util.ArrayList;
 import Controller.Factura;
 import Controller.Contribuyente;
@@ -8,7 +7,7 @@ import Model.*;
 import java.util.Random;
 import java.util.Scanner;
 
-public class SistemaDeDeclaracionAnualImpuestos implements Serializable {
+public class SistemaDeDeclaracionAnualImpuestos{
 
     public static void main(String[] args) {
         ArrayList<Contribuyente> usuarios = new ArrayList<>();

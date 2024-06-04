@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
  * @author MRodzDirect 😉 <Organico>
  */
 public class EscribirContribuyente  {
-        Contribuyente usuarito;
+        private Contribuyente usuarito;
 
     public EscribirContribuyente(Contribuyente usuarito) {
         this.usuarito = usuarito;

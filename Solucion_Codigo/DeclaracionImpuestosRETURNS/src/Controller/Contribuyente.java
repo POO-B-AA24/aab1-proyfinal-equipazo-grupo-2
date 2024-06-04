@@ -107,8 +107,8 @@ public class Contribuyente implements Serializable {
                 + "Credito tributario o devolucion (por dividendos Corporativos, para Inversor):\n" + this.retornoInversor + "\n"
                 + "Devolucion por Excedente de impuestos: (Ingresos netos negativos para persona Natural):\n" + this.refund + "\n"
                 + "-------------------------------------------------" + "\n"
-                + "Total de Impuesto a pagar: $" + (this.impuestosAPagar - this.refund - this.retornoInversor - totalIngresosAnuales * 0.1145);
-    }
+                + "Total de Impuesto a pagar: $" + (this.impuestosAPagar - this.refund - this.retornoInversor - totalIngresosAnuales * 0.1145); //subsidio por contribuir al IESS
+    } // para evitar crear atributos innecesarios (son solo requerimientos adicionales, he procesado el aporte al IESS y el total de impuesto a pagar en la misma linea, sin embargo estos datos no son cruciales para ningun otro calculo mas que para presentar un reporte detallado.
 
     public String getName() {
         return name;

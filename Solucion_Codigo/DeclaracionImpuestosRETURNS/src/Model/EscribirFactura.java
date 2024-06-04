@@ -4,16 +4,15 @@ import Controller.Factura;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EscribirFactura implements Serializable{
+public class EscribirFactura{
 
-    ObjectOutputStream writeFactura; // Clase para escribir objetos
+    private ObjectOutputStream writeFactura; // Clase para escribir objetos
 
-    String path; // Clase para obtener ruta de archivos
+    private String path; // Clase para obtener ruta de archivos
 
-    ArrayList<Factura> facturas;
+    private ArrayList<Factura> facturas;
 
     public EscribirFactura(ArrayList<Factura> facturas) {
         this.facturas = facturas;

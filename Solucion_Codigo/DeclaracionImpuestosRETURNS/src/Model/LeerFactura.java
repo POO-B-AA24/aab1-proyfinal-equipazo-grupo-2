@@ -5,12 +5,12 @@ import Controller.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-public class LeerFactura implements Serializable{
-    public ArrayList<Factura> listFacturas;
-    public ObjectInputStream leerFactura;
-    public FileInputStream archivasoPath;
+
+public class LeerFactura {
+    private ArrayList<Factura> listFacturas;
+    private ObjectInputStream leerFactura;
+    private FileInputStream archivasoPath;
     
     public LeerFactura() { // Bob El constructor: Ahora no es necesario inicializar el array. 
         //this.archivasoPath = archivasoPath;
