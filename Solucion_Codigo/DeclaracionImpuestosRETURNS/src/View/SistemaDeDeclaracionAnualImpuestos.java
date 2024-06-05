@@ -7,7 +7,7 @@ import Model.*;
 import java.util.Random;
 import java.util.Scanner;
 
-public class SistemaDeDeclaracionAnualImpuestos{
+public class SistemaDeDeclaracionAnualImpuestos {
 
     public static void main(String[] args) {
         ArrayList<Contribuyente> usuarios = new ArrayList<>();
@@ -34,11 +34,14 @@ public class SistemaDeDeclaracionAnualImpuestos{
             veEscribe.guardarFacturasEnArchivo("factura" + i + "-" + usuario.getName() + ".dat");
             System.out.println("Factura guardada en " + "factura" + i + "-" + usuario.getName() + ".dat");
 
-            // leer facturas
+            // leer facturas → asignar facturas
             LeerFactura veLee = new LeerFactura();
             ArrayList<Factura> facturasLeidas = veLee.leerFacturasDeArchivo("factura" + i + "-" + usuario.getName() + ".dat");
             System.out.println("Facturas leídas de " + "factura" + i + "-" + usuario.getName() + ".dat");
-            usuario.setFacturas(facturasLeidas);
+            usuario.setFacturas(facturasLeidas); // 
+
+            // resumen: Facturas son Autogeneradas , serializadas y al final deserializadas.
+            
             // calcular impuestos
             obtieneDividendos = r.nextBoolean();
 
@@ -51,8 +54,7 @@ public class SistemaDeDeclaracionAnualImpuestos{
             EscribirContribuyente guardarContrib = new EscribirContribuyente(usuario);
             guardarContrib.guardarUsuarioEnArchivo(usuario.getName() + ".dat"); // escribimos contribuyente con su respectivo reporte
             System.out.println("Usuario guardado en " + usuario.getName() + ".dat");
-            usuarios.add(usuario);
-            // resumen: Facturas son Autogeneradas , luego Leidas y bajo demanda Escritas.
+            usuarios.add(usuario); // no es indispensable para nuestro programa
             i++;
             System.out.println("¿Desea ingresar otro Contribuyente? (Si / No)");
             if (!in.next().equalsIgnoreCase("Si")) { //nextLine
@@ -68,7 +70,12 @@ public class SistemaDeDeclaracionAnualImpuestos{
             clientes.add(leeContrib.leerUsuarioDesdeArchivo(usuarios.get(d).getName() + ".dat"));
             System.out.println("Contribuyente con su reporte leido desde " + usuarios.get(d).getName() + ".dat");
             System.out.println(clientes.get(d).toString()); // Reporte completaso y personalizado con cada factura que tiene un contribuyente (para nuestro caso empezamos con 5 facturas dentro de un archivo para cada contribuyente.
-
+            // usuariso.get(posicion)
+            // array[i]= elemento;
+            
+            /* 
+            metodos para que el usuario agregue mas facturas. O para que nosotros agreguemos mas usuarios
+            */
         }
     }
 

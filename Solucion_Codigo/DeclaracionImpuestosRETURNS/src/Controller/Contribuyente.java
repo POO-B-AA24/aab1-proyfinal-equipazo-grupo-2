@@ -64,7 +64,9 @@ public class Contribuyente implements Serializable {
         // Le hacemos un retorno si esq su base imponible es negativa (es decir sus deducciones son mayores a sus ingresos)
 
         this.retornoInversor = this.dividend * dividendTaxRate;
-
+        
+        // Beneficio tributario: 1. refund (reembolso) 2. retorno de dividendo (inversor)
+        
         // Calcular impuestos según la tabla de impuestos del 2023
         if (totalIngresosAnuales <= 11722) {
             this.impuestos = 0;
