@@ -1,11 +1,11 @@
 package Controller;
-public class Educacion extends Factura {
+public class FacturaEducacion extends Factura {
 
-    public Educacion(double monto) {
+    public FacturaEducacion(double monto) {
         super(monto);
     }
 
-    public Educacion(double monto, int contribuyenteId) {
+    public FacturaEducacion(double monto, int contribuyenteId) {
         super(monto, contribuyenteId);
     }
     

@@ -3,21 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/Salud.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/GeneradorDatos.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/OperacionesContribuyente.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Model/EscribirContribuyente.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/Contribuyente.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/Turismo.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/ManejoArchivos.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/Factura.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/GastoCalculable.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/ArrancarSistema.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/Alimentacion.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/ConexionADataBase.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Model/DataBaseManager.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/Controller/OperacionesFactura.java</file>
-            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral2/ProyBimestral2/src/View/SistemaDeDeclaracionAnualImpuestos.java</file>
+            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral1/aab1-proyfinal-equipazo-grupo-2/ProyBimestral2/Codigo/src/Controller/GeneradorFacturas.java</file>
+            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral1/aab1-proyfinal-equipazo-grupo-2/ProyBimestral2/Codigo/src/Controller/Salud.java</file>
+            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral1/aab1-proyfinal-equipazo-grupo-2/ProyBimestral2/Codigo/src/Controller/Turismo.java</file>
+            <file>file:/C:/Users/USUARIO/Repos-POO/TallerBimestral1/aab1-proyfinal-equipazo-grupo-2/ProyBimestral2/Codigo/src/Controller/ArrancarSistema.java</file>
         </group>
     </open-files>
 </project-private>

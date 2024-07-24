@@ -1,10 +1,10 @@
 package Controller;
 
-public class Salud extends Factura{
-    public Salud(double monto) {
+public class FacturaSalud extends Factura{
+    public FacturaSalud(double monto) {
         super(monto);
     }
-    public Salud(double monto, int contribuyenteId) {
+    public FacturaSalud(double monto, int contribuyenteId) {
         super(monto, contribuyenteId);
     }
 

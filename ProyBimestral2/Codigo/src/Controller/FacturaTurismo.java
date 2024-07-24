@@ -1,10 +1,10 @@
 package Controller;
-public class Turismo extends Factura {
+public class FacturaTurismo extends Factura {
 
-    public Turismo(double monto) {
+    public FacturaTurismo(double monto) {
         super(monto);
     }
-    public Turismo(double monto, int contribuyenteId) {
+    public FacturaTurismo(double monto, int contribuyenteId) {
         super(monto, contribuyenteId);
     }
     @Override

@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.ConexionADataBase;
 import java.util.ArrayList;
 import java.util.Random;
 import java.sql.Connection;

@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.ConexionADataBase;
 import java.util.ArrayList;
 import Model.DataBaseManager;
 import java.sql.ResultSet;
@@ -16,15 +17,15 @@ public class OperacionesFactura {
     public static Factura crearFactura(String tipoFactura, double monto, int contribuyenteId) {
         switch (tipoFactura) {
             case "Alimentacion":
-                return new Alimentacion(monto, contribuyenteId);
+                return new FacturaAlimentacion(monto, contribuyenteId);
             case "Vivienda":
-                return new Vivienda(monto, contribuyenteId);
+                return new FacturaVivienda(monto, contribuyenteId);
             case "Turismo":
-                return new Turismo(monto, contribuyenteId);
+                return new FacturaTurismo(monto, contribuyenteId);
             case "Educacion":
-                return new Educacion(monto, contribuyenteId);
+                return new FacturaEducacion(monto, contribuyenteId);
             case "Salud":
-                return new Salud(monto, contribuyenteId);
+                return new FacturaSalud(monto, contribuyenteId);
             default:
                 throw new IllegalArgumentException("Tipo de factura inválido: " + tipoFactura);
         }

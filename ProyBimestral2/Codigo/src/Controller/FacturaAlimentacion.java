@@ -1,10 +1,10 @@
 package Controller;
-public class Alimentacion extends Factura {
+public class FacturaAlimentacion extends Factura {
 
-    public Alimentacion(double monto) {
+    public FacturaAlimentacion(double monto) {
         super(monto);
     }
-    public Alimentacion(double monto, int contribuyenteId) {
+    public FacturaAlimentacion(double monto, int contribuyenteId) {
         super(monto, contribuyenteId);
     }
     @Override

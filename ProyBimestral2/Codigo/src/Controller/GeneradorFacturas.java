@@ -6,23 +6,23 @@ public static ArrayList<Factura> generarFacturas() {
     ArrayList<Factura> facturas = new ArrayList<>();
     int facturaId = 1; // Start with ID 1
     for (int j = 0; j < 12; j++) {
-        Factura alimentacion = new Alimentacion(GeneradorDatos.generarGasto());
+        Factura alimentacion = new FacturaAlimentacion(GeneradorDatos.generarGasto());
         alimentacion.setId(facturaId++);
         facturas.add(alimentacion);
 
-        Factura vivienda = new Vivienda(GeneradorDatos.generarGasto());
+        Factura vivienda = new FacturaVivienda(GeneradorDatos.generarGasto());
         vivienda.setId(facturaId++);
         facturas.add(vivienda);
 
-        Factura educacion = new Educacion(GeneradorDatos.generarGasto());
+        Factura educacion = new FacturaEducacion(GeneradorDatos.generarGasto());
         educacion.setId(facturaId++);
         facturas.add(educacion);
 
-        Factura turismo = new Turismo(GeneradorDatos.generarGasto());
+        Factura turismo = new FacturaTurismo(GeneradorDatos.generarGasto());
         turismo.setId(facturaId++);
         facturas.add(turismo);
 
-        Factura salud = new Salud(GeneradorDatos.generarGasto());
+        Factura salud = new FacturaSalud(GeneradorDatos.generarGasto());
         salud.setId(facturaId++);
         facturas.add(salud);
     }

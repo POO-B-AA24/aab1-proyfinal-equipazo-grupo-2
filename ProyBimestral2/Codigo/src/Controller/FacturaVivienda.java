@@ -1,10 +1,10 @@
 package Controller;
-public class Vivienda extends Factura {
+public class FacturaVivienda extends Factura {
 
-    public Vivienda(double monto) {
+    public FacturaVivienda(double monto) {
         super(monto);
     }
-    public Vivienda(double monto, int contribuyenteId) {
+    public FacturaVivienda(double monto, int contribuyenteId) {
         super(monto, contribuyenteId);
     }
     public double calcularGasto() {
