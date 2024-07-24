@@ -33,7 +33,7 @@ public class ArrancarSistema {
         }
         //Todo eso desde SQL
         // Retrieve Contribuyente and Factura data from the database. Oh yeah!
-        OperacionesContribuyente.leerDesdeDBContribuyentes(usuarios);
+        OperacionesContribuyente.leerTodosLosContribuyentesDesdeDB(usuarios);
     }
 
 }
