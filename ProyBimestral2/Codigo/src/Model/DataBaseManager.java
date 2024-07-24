@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 /**
@@ -60,7 +56,7 @@ public class DataBaseManager {
     }
 
     public static boolean databaseExists() {
-        String databaseFilePath = "DB/Contribuyentes.db"; // Replace with the actual path to your database file
+        String databaseFilePath = "DB/Contribuyentes.db"; // Ruta de la base de datos
         File databaseFile = new File(databaseFilePath);
         return databaseFile.exists();
     }

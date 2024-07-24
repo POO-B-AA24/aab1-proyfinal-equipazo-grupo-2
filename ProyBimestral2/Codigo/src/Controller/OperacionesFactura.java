@@ -40,7 +40,7 @@ public static void saveFacturas(ArrayList<Factura> facturas, int contribuyenteId
             factura.setId(facturaId);
         }
     } else {
-        System.out.println("Facturas table does not exist.");
+        System.out.println("Tabla Facturas no existe.");// Excepcion
     }
 }
 
@@ -56,7 +56,7 @@ private static int getLastFacturaId() {
     } catch (SQLException e) {
         System.err.println("Error retrieving data from the database: " + e.getMessage());
     }
-    return 0; // Return 0 if the table is empty
+    return 0; // Retorna 0 si la tabla eta vacía
 }
 
 
@@ -84,21 +84,6 @@ public static void leerFacturasDesdeDB(Contribuyente contribuyente) {
         System.out.println("Facturas table does not exist.");
     }
 }
-
-
-
-    /*public static int getNextFacturaId() {
-        String sql = "SELECT MAX(id) AS last_id FROM Facturas";
-        try (ResultSet resultSet = ConexionADataBase.executeQuery(sql)) {
-            if (resultSet.next()) {
-                int lastId = resultSet.getInt("last_id");
-                return lastId + 1;
-            }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving data from the database: " + e.getMessage());
-        }
-        return 1; // Return 1 if the table is empty
-    }*/
 
     public static void updateFactura(Factura factura, int contribuyenteId) {
         String sql = "UPDATE Facturas SET tipo = ?, monto = ? WHERE contribuyente_id = ? AND tipo = ?";

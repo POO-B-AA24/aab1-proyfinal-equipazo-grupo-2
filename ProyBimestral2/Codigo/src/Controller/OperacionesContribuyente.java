@@ -19,24 +19,17 @@ public class OperacionesContribuyente {
                 GeneradorDatos.generarDireccion(),
                 GeneradorDatos.generarCedulas()
         );
-        // Guardar facturas del contribuyente
+        
+        // Proceso fundamentales
         procesarImpuestos(usuario);
+        // Guardar contribuyente a ala base de datos
         int contribuyenteId = saveContribuyente(usuario);
         usuario.setId(contribuyenteId);
-
+        // Guardar facturas del contribuyente
         OperacionesFactura.saveFacturas(facturas, usuario.getId());
-
-        // archivos normales , no DB
-//        String archivoFacturas = ManejoArchivos.guardarFacturasEnArchivo(facturas, contadorUsuarios, usuario);
-//        usuario.setFacturas(ManejoArchivos.leerFacturasDeArchivo(archivoFacturas));
         // Leer facturas desde la db
         leerFacturasDesdeDB(usuario);
-        //usuario.setFacturas(usuario.getFacturas());
 
-        // Proceso fundamentales
-        // archivos
-//        ManejoArchivos.guardarContribuyente(usuario);
-        // Guardar contribuyente a ala base de datos
         return usuario;
     }
 
@@ -90,8 +83,6 @@ public class OperacionesContribuyente {
                 double[] sueldosMensuales = convertStringToArray(sueldosMensualesString);
                 String direccion = resultSet.getString("direccion");
                 String cedula = resultSet.getString("cedula");
-//                String tipoFactura = resultSet.getString("tipo");
-//                double monto = resultSet.getDouble("monto");
                 String reporte = resultSet.getString("reporte");
 
                 Contribuyente contribuyente = verificarContribuyente(usuarios, contribuyenteId, nombre); // evitar que el mismo cliente no este duplicado. Esto es un double-check
@@ -176,7 +167,7 @@ public class OperacionesContribuyente {
         } catch (SQLException e) {
             System.err.println("Error retrieving data from the database: " + e.getMessage());
         }
-        return 0; // Return 0 if the table is empty
+        return 0; // Retorna 0 si la tabla está vacía
     }
 
 }

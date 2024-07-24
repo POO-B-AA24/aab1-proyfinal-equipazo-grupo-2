@@ -31,10 +31,7 @@ public class ArrancarSistema {
                 continuar = false;
             }
         }
-
-        // Leer desde archivo
-        // OperacionesContribuyente.leerYMostrarContribuyentes(usuarios);
-        // ahora desde sql:
+        //Todo eso desde SQL
         // Retrieve Contribuyente and Factura data from the database. Oh yeah!
         OperacionesContribuyente.leerDesdeDBContribuyentes(usuarios);
     }
