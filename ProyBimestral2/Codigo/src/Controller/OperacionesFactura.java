@@ -16,15 +16,15 @@ public class OperacionesFactura {
 
     public static Factura crearFactura(String tipoFactura, double monto, int contribuyenteId) {
         switch (tipoFactura) {
-            case "Alimentacion":
+            case "FacturaAlimentacion":
                 return new FacturaAlimentacion(monto, contribuyenteId);
-            case "Vivienda":
+            case "FacturaVivienda":
                 return new FacturaVivienda(monto, contribuyenteId);
-            case "Turismo":
+            case "FacturaTurismo":
                 return new FacturaTurismo(monto, contribuyenteId);
-            case "Educacion":
+            case "FacturaEducacion":
                 return new FacturaEducacion(monto, contribuyenteId);
-            case "Salud":
+            case "FacturaSalud":
                 return new FacturaSalud(monto, contribuyenteId);
             default:
                 throw new IllegalArgumentException("Tipo de factura inválido: " + tipoFactura);
@@ -52,6 +52,8 @@ private static int getLastFacturaId() {
     try (ResultSet resultSet = ConexionADataBase.executeQuery(sql)) {
         if (resultSet.next()) {
             return resultSet.getInt("last_id");
+        } else{
+            return 0;
         }
     } catch (SQLException e) {
         System.err.println("Error retrieving data from the database: " + e.getMessage());
