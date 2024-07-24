@@ -11,13 +11,15 @@ import Model.DataBaseManager;
 public class ArrancarSistema {
 
     public static void comienza() {
-        ArrayList<Contribuyente> usuarios = new ArrayList<>();
+        ArrayList<Contribuyente> usuarios = new ArrayList<>(); // esto es solo para leer al final desde la base de datos
         Scanner in = new Scanner(System.in);
         boolean continuar = true;
-        int contadorUsuarios = 0;
-
+        //int contadorUsuarios = (OperacionesContribuyente.getLastContribuyenteId() !=0 ) ?  OperacionesContribuyente.getLastContribuyenteId() + 1 : 0;
         // Crear las tablas de la database si no existen
-        DataBaseManager.createTables();
+        if (!DataBaseManager.databaseExists()) {
+            DataBaseManager.createTables();
+        }
+        int contadorUsuarios = OperacionesContribuyente.getLastContribuyenteId() + 1;
 
         while (continuar) {
             Contribuyente contribuyente = OperacionesContribuyente.crearYProcesarContribuyente(contadorUsuarios);
@@ -29,10 +31,9 @@ public class ArrancarSistema {
                 continuar = false;
             }
         }
-        
-        // Leer desde archivo
-       // OperacionesContribuyente.leerYMostrarContribuyentes(usuarios);
 
+        // Leer desde archivo
+        // OperacionesContribuyente.leerYMostrarContribuyentes(usuarios);
         // ahora desde sql:
         // Retrieve Contribuyente and Factura data from the database. Oh yeah!
         OperacionesContribuyente.leerDesdeDBContribuyentes(usuarios);

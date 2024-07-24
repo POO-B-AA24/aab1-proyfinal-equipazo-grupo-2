@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import Model.DataBaseManager;
 
 public class OperacionesContribuyente {
 
@@ -18,24 +19,23 @@ public class OperacionesContribuyente {
                 GeneradorDatos.generarCedulas()
         );
         // Guardar facturas del contribuyente
+        procesarImpuestos(usuario);
+        int contribuyenteId = saveContribuyente(usuario);
+        usuario.setId(contribuyenteId);
+
         OperacionesFactura.saveFacturas(facturas, usuario.getId());
 
         // archivos normales , no DB
 //        String archivoFacturas = ManejoArchivos.guardarFacturasEnArchivo(facturas, contadorUsuarios, usuario);
 //        usuario.setFacturas(ManejoArchivos.leerFacturasDeArchivo(archivoFacturas));
-
         // Leer facturas desde la db
         leerFacturasDesdeDB(usuario);
-        usuario.setFacturas(usuario.getFacturas());
-        
-        // Proceso fundamentales
-        procesarImpuestos(usuario);
+        //usuario.setFacturas(usuario.getFacturas());
 
+        // Proceso fundamentales
         // archivos
 //        ManejoArchivos.guardarContribuyente(usuario);
         // Guardar contribuyente a ala base de datos
-        saveContribuyente(usuario);
-
         return usuario;
     }
 
@@ -59,10 +59,11 @@ public class OperacionesContribuyente {
     }
 
     // Operaciones para consultar hacia la database:
-    private static void saveContribuyente(Contribuyente contribuyente) {
+    private static int saveContribuyente(Contribuyente contribuyente) {
         String sueldosMensualesString = convertArrayToString(contribuyente.getSueldosMensuales());
         String sql = "INSERT INTO Contribuyentes (nombre, sueldosMensuales, direccion, cedula, reporte) VALUES (?, ?, ?, ?, ?)";
-        ConexionADataBase.executeUpdate(sql, contribuyente.getName(), sueldosMensualesString, contribuyente.getDireccion(), contribuyente.getCedula(), contribuyente.getReporte());
+        int contribuyenteId = ConexionADataBase.executeUpdateAndGetId(sql, contribuyente.getName(), sueldosMensualesString, contribuyente.getDireccion(), contribuyente.getCedula(), contribuyente.getReporte());
+        return contribuyenteId;
     }
 
     private static String convertArrayToString(double[] array) {
@@ -88,17 +89,20 @@ public class OperacionesContribuyente {
                 double[] sueldosMensuales = convertStringToArray(sueldosMensualesString);
                 String direccion = resultSet.getString("direccion");
                 String cedula = resultSet.getString("cedula");
-                String tipoFactura = resultSet.getString("tipo");
-                double monto = resultSet.getDouble("monto");
+//                String tipoFactura = resultSet.getString("tipo");
+//                double monto = resultSet.getDouble("monto");
                 String reporte = resultSet.getString("reporte");
 
                 Contribuyente contribuyente = verificarContribuyente(usuarios, contribuyenteId, nombre); // evitar que el mismo cliente no este duplicado. Esto es un double-check
+
                 contribuyente.setSueldosMensuales(sueldosMensuales);
                 contribuyente.setDireccion(direccion);
                 contribuyente.setCedula(cedula);
                 contribuyente.setReporte(reporte);
-
+                contribuyente.setId(contribuyenteId);
                 leerFacturasDesdeDB(contribuyente);
+                usuarios.add(contribuyente);
+
             }
         } catch (SQLException e) {
             System.err.println("Error retrieving data from the database: " + e.getMessage());
@@ -119,19 +123,25 @@ public class OperacionesContribuyente {
     }
 
     private static void leerFacturasDesdeDB(Contribuyente contribuyente) {
-        String sql = "SELECT f.tipo, f.monto FROM Facturas f WHERE f.contribuyente_id = ?";
-        try (Connection connection = ConexionADataBase.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, contribuyente.getId());
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    String tipoFactura = resultSet.getString("tipo");
-                    double monto = resultSet.getDouble("monto");
-                    Factura factura = OperacionesFactura.crearFactura(tipoFactura, monto);
-                    contribuyente.addFactura(factura);
+        if (DataBaseManager.tableExists("Facturas")) {
+            String sql = "SELECT f.id, f.tipo, f.monto, f.contribuyente_id FROM Facturas f WHERE f.contribuyente_id = ?";
+            try (Connection connection = ConexionADataBase.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, contribuyente.getId());
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int facturaId = resultSet.getInt("id");
+                        String tipoFactura = resultSet.getString("tipo");
+                        double monto = resultSet.getDouble("monto");
+                        int contribuyenteId = resultSet.getInt("contribuyente_id");
+                        Factura factura = OperacionesFactura.crearFactura(tipoFactura, monto, contribuyenteId);
+                        contribuyente.addFactura(factura);
+                    }
                 }
+            } catch (SQLException e) {
+                System.err.println("Error retrieving data from the database: " + e.getMessage());
             }
-        } catch (SQLException e) {
-            System.err.println("Error retrieving data from the database: " + e.getMessage());
+        } else {
+            System.out.println("Tabla Facturas no existe.");
         }
     }
 
@@ -142,8 +152,7 @@ public class OperacionesContribuyente {
             }
         }
         Contribuyente newContribuyente = usuarios.get(contribuyenteId);
-        newContribuyente.setId(contribuyenteId);
-        usuarios.add(newContribuyente);
+
         return newContribuyente;
     }
 
@@ -153,6 +162,20 @@ public class OperacionesContribuyente {
 
         sql = "DELETE FROM Contribuyentes WHERE id = ?";
         ConexionADataBase.executeUpdate(sql, contribuyente.getId());
+    }
+
+    public static int getLastContribuyenteId() {
+        String sql = "SELECT MAX(id) AS last_id FROM Contribuyentes";
+        try (ResultSet resultSet = ConexionADataBase.executeQuery(sql)) {
+            if (resultSet.next()) {
+                return resultSet.getInt("last_id");
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving data from the database: " + e.getMessage());
+        }
+        return 0; // Return 0 if the table is empty
     }
 
 }

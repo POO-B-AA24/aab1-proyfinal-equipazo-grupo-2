@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +52,24 @@ public class ConexionADataBase {
             return 0;
         }
     }
+    public static int executeUpdateAndGetId(String sql, Object... parameters) {
+    try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        setParameters(statement, parameters);
+        int affectedRows = statement.executeUpdate();
+        if (affectedRows > 0) {
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error executing SQL statement: " + e.getMessage());
+    }
+    return 0;
+}
+
+
 
     public static ResultSet executeQuery(String sql, Object... parameters) {
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {

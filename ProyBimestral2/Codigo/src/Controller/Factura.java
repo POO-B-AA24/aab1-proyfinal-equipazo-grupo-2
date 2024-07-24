@@ -4,10 +4,18 @@ import java.io.Serializable;
 
 public abstract class Factura implements GastoCalculable , Serializable{
     double monto;
+    int id;
+    int contribuyenteId;
 
     public Factura(double monto) {
         this.monto = monto;
     }
+
+    public Factura(double monto, int contribuyenteId) {
+        this.monto = monto;
+        this.contribuyenteId = contribuyenteId;
+    }
+    
 
     public double getMonto() {
         return monto;
@@ -17,6 +25,24 @@ public abstract class Factura implements GastoCalculable , Serializable{
         this.monto = monto;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getContribuyenteId() {
+        return contribuyenteId;
+    }
+
+    public void setContribuyenteId(int contribuyenteId) {
+        this.contribuyenteId = contribuyenteId;
+    }
+    
+    
+
     @Override
     public abstract double calcularGasto();
 
@@ -24,6 +50,7 @@ public abstract class Factura implements GastoCalculable , Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("Factura #" + i);
         sb.append("\n monto=").append(monto);
+        sb.append("\n contribuyenteId=").append(contribuyenteId);
         sb.append('}');
         return sb.toString();
     }

@@ -27,6 +27,7 @@ public class Contribuyente implements Serializable {
         this.sueldosMensuales = sueldosMensuales;
         this.direccion = direccion;
         this.cedula = cedula;
+        this.facturas = new ArrayList<Factura>();
     }
 
     public void calcularImpuestos() {
@@ -36,7 +37,8 @@ public class Contribuyente implements Serializable {
         }
 
         double totalDeducciones = 0;
-        for (Factura factura : this.facturas) {
+        for (Factura factura : this.facturas) { // POLIMORFISMO
+            factura.setContribuyenteId(this.getId());
             factura.calcularGasto();
         }
 
