@@ -19,7 +19,7 @@ public class OperacionesContribuyente {
                 GeneradorDatos.generarDireccion(),
                 GeneradorDatos.generarCedulas()
         );
-        
+
         // Proceso fundamentales
         procesarImpuestos(usuario);
         // Guardar contribuyente a ala base de datos
@@ -42,7 +42,6 @@ public class OperacionesContribuyente {
         usuario.calcularImpuestos();
         usuario.generarReporteImpuestos();
     }
-
     public static void leerYMostrarContribuyentes(ArrayList<Contribuyente> usuarios) { // Método público
         for (Contribuyente usuario : usuarios) {
             Contribuyente cliente = ManejoArchivos.leerContribuyente(usuario.getName());
@@ -85,7 +84,8 @@ public class OperacionesContribuyente {
                 String cedula = resultSet.getString("cedula");
                 String reporte = resultSet.getString("reporte");
 
-                Contribuyente contribuyente = verificarContribuyente(usuarios, contribuyenteId, nombre); // evitar que el mismo cliente no este duplicado. Esto es un double-check
+//                Contribuyente contribuyente = verificarContribuyente(usuarios, contribuyenteId, nombre); // evitar que el mismo cliente no este duplicado. Esto es un double-check
+                Contribuyente contribuyente = usuarios.get(contribuyenteId);
 
                 contribuyente.setSueldosMensuales(sueldosMensuales);
                 contribuyente.setDireccion(direccion);

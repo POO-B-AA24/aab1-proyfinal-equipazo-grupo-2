@@ -76,7 +76,6 @@ public class Contribuyente implements Serializable {
         this.impuestosAPagar = impuestos - totalDeduccionesAnuales;
 
     }
-
     public void generarReporteImpuestos() {
         this.reporte = "Reporte de impuestos:\n"
                 + "Estimado/a " + this.name + "\n"
@@ -92,9 +91,33 @@ public class Contribuyente implements Serializable {
                 + "Aporte al IESS:\n" + totalIngresosAnuales * 0.1145 + "\n" // El aporte el iess es del 11.45% para personas normales
                 + "Credito tributario o devolucion (por dividendos Corporativos, para Inversor):\n" + this.retornoInversor + "\n"
                 + "Devolucion por Excedente de impuestos: (Ingresos netos negativos para persona Natural):\n" + this.refund + "\n"
+                + "Información:\n" + categorizarInformar(this.totalIngresosAnuales) + "\n"
                 + "-------------------------------------------------" + "\n"
                 + "Total de Impuesto a pagar: $" + (this.impuestosAPagar - this.refund - this.retornoInversor - totalIngresosAnuales * 0.1145); //subsidio por contribuir al IESS
     } // para evitar crear atributos innecesarios (son solo requerimientos adicionales, he procesado el aporte al IESS y el total de impuesto a pagar en la misma linea, sin embargo estos datos no son cruciales para ningun otro calculo mas que para presentar un reporte detallado.
+    private String categorizarInformar(double totalIngresosA) {
+        if (totalIngresosA <= 11722) {
+            return "No está sujeto al pago de impuesto a la renta debido a que su base imponible es menor o igual a 11,722 USD.";
+        } else if (totalIngresosA <= 14930) {
+            return "Se aplica una tasa del 5% sobre la fracción excedente de 11,722 USD.";
+        } else if (totalIngresosA <= 19385) {
+            return "Se aplica una tasa del 10% sobre la fracción excedente de 14,935 USD.";
+        } else if (totalIngresosA <= 25638) {
+            return "Se aplica una tasa del 12% sobre la fracción excedente de 18,666 USD.";
+        } else if (totalIngresosA <= 33738) {
+            return "Se aplica una tasa del 15% sobre la fracción excedente de 22,418 USD.";
+        } else if (totalIngresosA <= 44721) {
+            return "Se aplica una tasa del 20% sobre la fracción excedente de 44,837 USD.";
+        } else if (totalIngresosA <= 59537) {
+            return "Se aplica una tasa del 25% sobre la fracción excedente de 74,729 USD.";
+        } else if (totalIngresosA <= 79388) {
+            return "Se aplica una tasa del 30% sobre la fracción excedente de 99,638 USD.";
+        } else {
+            return "Se aplica una tasa del 37% sobre la fracción excedente de 149,459 USD.";
+        }
+    }
+    
+    
 
     public String getName() {
         return name;
