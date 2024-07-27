@@ -104,6 +104,41 @@ public class OperacionesContribuyente {
             System.out.println(contribuyente);
         }
     }
+    
+    public static void leerTodosLosContribuyentesDesdeDB(ArrayList<Contribuyente> usuarios) {
+    String sql = "SELECT c.id, c.nombre, c.sueldosMensuales, c.direccion, c.cedula, c.reporte "
+            + "FROM Contribuyentes c";
+    try (Connection connection = ConexionADataBase.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql);
+         ResultSet resultSet = statement.executeQuery()) {
+        while (resultSet.next()) {
+            int contribuyenteId = resultSet.getInt("id");
+            String nombre = resultSet.getString("nombre");
+            String sueldosMensualesString = resultSet.getString("sueldosMensuales");
+            double[] sueldosMensuales = convertStringToArray(sueldosMensualesString);
+            String direccion = resultSet.getString("direccion");
+            String cedula = resultSet.getString("cedula");
+            String reporte = resultSet.getString("reporte");
+
+            Contribuyente contribuyente = verificarContribuyente(usuarios, contribuyenteId, nombre);
+
+            contribuyente.setSueldosMensuales(sueldosMensuales);
+            contribuyente.setDireccion(direccion);
+            contribuyente.setCedula(cedula);
+            contribuyente.setReporte(reporte);
+            contribuyente.setId(contribuyenteId);
+            leerFacturasDesdeDB(contribuyente);
+            usuarios.add(contribuyente);
+        }
+    } catch (SQLException e) {
+        System.err.println("Error retrieving data from the database: " + e.getMessage());
+    }
+
+    for (Contribuyente contribuyente : usuarios) {
+        System.out.println(contribuyente);
+    }
+}
+
 
     private static double[] convertStringToArray(String sueldosMensualesString) {
         String[] sueldosMensualesArray = sueldosMensualesString.split(",");
@@ -137,16 +172,19 @@ public class OperacionesContribuyente {
         }
     }
 
-    private static Contribuyente verificarContribuyente(ArrayList<Contribuyente> usuarios, int contribuyenteId, String nombre) {
-        for (Contribuyente contribuyente : usuarios) {
-            if (contribuyente.getId() == contribuyenteId) {
-                return contribuyente;
-            }
+private static Contribuyente verificarContribuyente(ArrayList<Contribuyente> usuarios, int contribuyenteId, String nombre) {
+    for (Contribuyente contribuyente : usuarios) {
+        if (contribuyente.getId() == contribuyenteId) {
+            return contribuyente;
         }
-        Contribuyente newContribuyente = usuarios.get(contribuyenteId);
-
-        return newContribuyente;
     }
+    
+    // If the contribuyente is not found in the usuarios list, create a new one
+    Contribuyente newContribuyente = new Contribuyente(contribuyenteId, nombre, new double[0], "", "");
+    usuarios.add(newContribuyente);
+    return newContribuyente;
+}
+
 
     public static void deleteContribuyente(Contribuyente contribuyente) {
         String sql = "DELETE FROM Facturas WHERE contribuyente_id = ?";
