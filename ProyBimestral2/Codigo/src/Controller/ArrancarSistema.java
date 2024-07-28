@@ -19,7 +19,7 @@ public class ArrancarSistema {
         if (!DataBaseManager.databaseExists()) {
             DataBaseManager.createTables();
         }
-        int contadorUsuarios = OperacionesContribuyente.getLastContribuyenteId() + 1;
+        int contadorUsuarios = OperacionesContribuyente.getLastContribuyenteId() + 1; // problem
 
         while (continuar) {
             Contribuyente contribuyente = OperacionesContribuyente.crearYProcesarContribuyente(contadorUsuarios);
@@ -33,7 +33,8 @@ public class ArrancarSistema {
         }
         //Todo eso desde SQL
         // Retrieve Contribuyente and Factura data from the database. Oh yeah!
-        OperacionesContribuyente.leerTodosLosContribuyentesDesdeDB(usuarios);
+
+        OperacionesContribuyente.leerTodosLosContribuyentesDesdeDB();
     }
 
 }

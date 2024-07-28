@@ -1,8 +1,9 @@
 package Controller;
+
 import java.util.Random;
 
 public class GeneradorDatos {
-    
+
     private static Random random = new Random();
 
     public static String generarNombres() {
@@ -51,4 +52,10 @@ public class GeneradorDatos {
         }
         return cedula.toString();
     }
+
+    public static String generarDecision() {
+        String[] decisiones = {"Si", "No"};
+        return decisiones[random.nextInt(decisiones.length)];
+    }
+
 }
