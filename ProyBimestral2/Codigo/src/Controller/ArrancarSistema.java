@@ -11,7 +11,7 @@ import Model.DataBaseManager;
 public class ArrancarSistema {
 
     public static void comienza() {
-        ArrayList<Contribuyente> usuarios = new ArrayList<>(); // esto es solo para leer al final desde la base de datos
+        ArrayList<Contribuyente> usuarios = new ArrayList<>(); // esto es para rear contribuyentes hacia la base de datos
         Scanner in = new Scanner(System.in);
         boolean continuar = true;
         //int contadorUsuarios = (OperacionesContribuyente.getLastContribuyenteId() !=0 ) ?  OperacionesContribuyente.getLastContribuyenteId() + 1 : 0;
@@ -33,6 +33,8 @@ public class ArrancarSistema {
         }
         //Todo eso desde SQL
         // Retrieve Contribuyente and Factura data from the database. Oh yeah!
+
+        ArrayList<Contribuyente> usuariosDesdeDB = new ArrayList<>(); // esto es solo para leer al final desde la base de datos
 
         OperacionesContribuyente.leerTodosLosContribuyentesDesdeDB();
     }

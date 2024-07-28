@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import Model.DataBaseManager;
 
 public class OperacionesContribuyente {
 
@@ -21,7 +20,7 @@ public class OperacionesContribuyente {
         );
 
         // Proceso fundamentales
-        procesarImpuestos(usuario);
+        procesarImpuestos(usuario, facturas);
         // Guardar contribuyente a ala base de datos
         int contribuyenteId = saveContribuyente(usuario);
         usuario.setId(contribuyenteId);
@@ -33,16 +32,18 @@ public class OperacionesContribuyente {
         return usuario;
     }
 
-    private static void procesarImpuestos(Contribuyente usuario) {
+    private static void procesarImpuestos(Contribuyente usuario, ArrayList<Factura> facturas) {
         Random r = new Random();
         if (r.nextBoolean()) {
             usuario.setDividend(GeneradorDatos.generarDividendos());
             usuario.setDividendTaxRate(GeneradorDatos.generarTasasImpositivasDividendos());
         }
+        usuario.setFacturas(facturas);
         usuario.calcularImpuestos();
         usuario.generarReporteImpuestos();
     }
 
+    // Para leer desde archivo
     public static void leerYMostrarContribuyentes(ArrayList<Contribuyente> usuarios) { // Método público
         for (Contribuyente usuario : usuarios) {
             Contribuyente cliente = ManejoArchivos.leerContribuyente(usuario.getName());
@@ -55,8 +56,8 @@ public class OperacionesContribuyente {
     // Operaciones para consultar hacia la database:
     private static int saveContribuyente(Contribuyente contribuyente) {
         String sueldosMensualesString = convertArrayToString(contribuyente.getSueldosMensuales());
-        String sql = "INSERT INTO Contribuyentes (nombre, sueldosMensuales, direccion, cedula, reporte) VALUES (?, ?, ?, ?, ?)";
-        int contribuyenteId = ConexionADataBase.executeUpdateAndGetId(sql, contribuyente.getName(), sueldosMensualesString, contribuyente.getDireccion(), contribuyente.getCedula(), contribuyente.getReporte());
+        String sql = "INSERT INTO Contribuyentes (nombre, sueldosMensuales, direccion, cedula, reporte, mensaje) VALUES (?, ?, ?, ?, ?, ?)";
+        int contribuyenteId = ConexionADataBase.executeUpdateAndGetId(sql, contribuyente.getName(), sueldosMensualesString, contribuyente.getDireccion(), contribuyente.getCedula(), contribuyente.getReporte(), contribuyente.getMensaje());
         return contribuyenteId;
     }
 
@@ -107,7 +108,7 @@ public class OperacionesContribuyente {
     }*/
     public static void leerTodosLosContribuyentesDesdeDB() {
         ArrayList<Contribuyente> usuarios = new ArrayList<>();
-        String sql = "SELECT c.id, c.nombre, c.sueldosMensuales, c.direccion, c.cedula, c.reporte "
+        String sql = "SELECT c.id, c.nombre, c.sueldosMensuales, c.direccion, c.cedula, c.reporte, c.mensaje "
                 + "FROM Contribuyentes c";
         try (Connection connection = ConexionADataBase.getConnection(); PreparedStatement statement = connection.prepareStatement(sql); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
@@ -118,6 +119,7 @@ public class OperacionesContribuyente {
                 String direccion = resultSet.getString("direccion");
                 String cedula = resultSet.getString("cedula");
                 String reporte = resultSet.getString("reporte");
+                String mensaje = resultSet.getString("mensaje");
 
                 Contribuyente contribuyente = verificarContribuyente(usuarios, contribuyenteId, nombre);
 
@@ -126,6 +128,7 @@ public class OperacionesContribuyente {
                 contribuyente.setCedula(cedula);
                 contribuyente.setReporte(reporte);
                 contribuyente.setId(contribuyenteId);
+                contribuyente.setMensaje(mensaje);
                 OperacionesFactura.leerFacturasDesdeDB(contribuyente);
                 usuarios.add(contribuyente);
             }
@@ -135,7 +138,8 @@ public class OperacionesContribuyente {
 
         for (Contribuyente contribuyente : usuarios) {
             System.out.println(contribuyente);
-            System.out.println(GeneradorDatos.generarDecision().equalsIgnoreCase("Si") ? contribuyente.getMensaje() : " ");
+//            System.out.println(GeneradorDatos.generarDecision().equalsIgnoreCase("Si") ? contribuyente.getMensaje() : ".");
+            System.out.println(contribuyente.getMensaje());
         }
     }
 
@@ -179,7 +183,7 @@ public class OperacionesContribuyente {
 
         // If the contribuyente is not found in the usuarios list, create a new one
         Contribuyente newContribuyente = new Contribuyente(contribuyenteId, nombre, new double[0], "", "");
-        usuarios.add(newContribuyente);
+        //usuarios.add(newContribuyente);
         return newContribuyente;
     }
 

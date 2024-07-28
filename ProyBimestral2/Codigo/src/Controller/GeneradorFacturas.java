@@ -5,28 +5,22 @@ public class GeneradorFacturas {
 public static ArrayList<Factura> generarFacturas() {
     ArrayList<Factura> facturas = new ArrayList<>();
     int facturaId = 1; // Inicia desde el ID 1
-    for (int j = 0; j < 12; j++) {
-        Factura alimentacion = new FacturaAlimentacion(GeneradorDatos.generarGasto());
-        alimentacion.setId(facturaId++);
-        facturas.add(alimentacion);
-
-        Factura vivienda = new FacturaVivienda(GeneradorDatos.generarGasto());
-        vivienda.setId(facturaId++);
-        facturas.add(vivienda);
-
-        Factura educacion = new FacturaEducacion(GeneradorDatos.generarGasto());
-        educacion.setId(facturaId++);
-        facturas.add(educacion);
-
-        Factura turismo = new FacturaTurismo(GeneradorDatos.generarGasto());
-        turismo.setId(facturaId++);
-        facturas.add(turismo);
-
-        Factura salud = new FacturaSalud(GeneradorDatos.generarGasto());
-        salud.setId(facturaId++);
-        facturas.add(salud);
+    
+    // Todas son las facturas de 1 solo mes.
+    
+    for (int j = 0; j < GeneradorDatos.generarCantidadDeFacturas(); j++) {
+        
+        Factura fac1 = GeneradorDatos.generarCategoriasObj();
+        fac1.setMonto(GeneradorDatos.generarGasto());
+        fac1.setId(facturaId++);
+        facturas.add(fac1);
+        
     }
     return facturas;
 }
-
+// may perform an enhancement
+// Pruebas:
+//        Factura alimentacion = new FacturaAlimentacion(GeneradorDatos.generarGasto());
+//        alimentacion.setId(facturaId++);
+//        facturas.add(alimentacion);
 }

@@ -20,20 +20,15 @@ public class DataBaseManager {
                 + "sueldosMensuales TEXT, "
                 + "direccion TEXT, "
                 + "cedula TEXT, "
-                + "reporte TEXT"
+                + "reporte TEXT, "
+                + "mensaje TEXT"
                 + ")";
 
-        String createFacturasTable = "CREATE TABLE IF NOT EXISTS Facturas ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + "tipo TEXT, "
-                + "monto REAL, "
-                + "contribuyente_id INTEGER, "
-                + "FOREIGN KEY (contribuyente_id) REFERENCES Contribuyentes(id)"
-                + ")";
+        createFacturasTable();
 
         try (Connection connection = ConexionADataBase.getConnection(); Statement statement = connection.createStatement()) {
             statement.executeUpdate(createContribuyentesTable);
-            statement.executeUpdate(createFacturasTable);
+            //statement.executeUpdate(createFacturasTable);
         } catch (SQLException e) {
             System.err.println("Error creating database tables: " + e.getMessage());
         }

@@ -2,20 +2,24 @@ package Controller;
 
 import java.io.Serializable;
 
-public abstract class Factura implements GastoCalculable , Serializable{
+public abstract class Factura implements GastoCalculable, Serializable {
+
     double monto;
     int id;
     int contribuyenteId;
+    double discount;
 
     public Factura(double monto) {
         this.monto = monto;
+    }
+
+    public Factura() {
     }
 
     public Factura(double monto, int contribuyenteId) {
         this.monto = monto;
         this.contribuyenteId = contribuyenteId;
     }
-    
 
     public double getMonto() {
         return monto;
@@ -40,8 +44,6 @@ public abstract class Factura implements GastoCalculable , Serializable{
     public void setContribuyenteId(int contribuyenteId) {
         this.contribuyenteId = contribuyenteId;
     }
-    
-    
 
     @Override
     public abstract double calcularGasto();
@@ -50,7 +52,8 @@ public abstract class Factura implements GastoCalculable , Serializable{
         StringBuilder sb = new StringBuilder();
         sb.append("Factura #" + i);
         sb.append("\n monto=").append(monto);
-        sb.append("\n contribuyenteId=").append(contribuyenteId);
+        sb.append("Descuento= ").append(discount);
+        sb.append("\n contribuyenteId=").append(contribuyenteId); //once tests have finished. Exclude this from toString()
         sb.append('}');
         return sb.toString();
     }

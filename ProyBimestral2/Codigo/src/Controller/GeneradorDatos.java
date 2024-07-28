@@ -33,9 +33,21 @@ public class GeneradorDatos {
         return random.nextDouble() * (500 - 100) + 100;
     }
 
+    // Deprecated, metodo obsoleto.
     public static String generarCategorias() {
         String[] categorias = {"Alimentacion", "Vivienda", "Educacion", "Salud", "Turismo"};
         return categorias[random.nextInt(categorias.length)];
+    }
+
+    // nuevo metodo
+    public static Factura generarCategoriasObj() {
+        Factura[] categorias = {new FacturaAlimentacion(), new FacturaVivienda(), new FacturaEducacion(), new FacturaSalud(), new FacturaTurismo()};
+        return categorias[random.nextInt(categorias.length)];
+    }
+
+    public static double generarCantidadDeFacturas() {
+        double[] cant = {20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60}; //Le ajuste con estos limites para que se adecue en especifico para las facturas. Metodo que podria ser abstraido
+        return cant[random.nextInt(cant.length)];
     }
 
     public static String generarDireccion() {
