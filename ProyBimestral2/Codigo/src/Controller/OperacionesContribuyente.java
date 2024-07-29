@@ -139,7 +139,7 @@ public class OperacionesContribuyente {
         return usuarios;
     }
 
-    private static double[] convertStringToArray(String sueldosMensualesString) {
+    public static double[] convertStringToArray(String sueldosMensualesString) {
         String[] sueldosMensualesArray = sueldosMensualesString.split(",");
         double[] sueldosMensuales = new double[sueldosMensualesArray.length];
         for (int i = 0; i < sueldosMensualesArray.length; i++) {
@@ -207,13 +207,19 @@ public static Contribuyente buscarContribuyentePorCedula(String cedula) {
     return null;
 }
 
+    public static void deleteContribuyentePorCedula(String cedula) {
+        Contribuyente contribuyente = buscarContribuyentePorCedula(cedula);
+        if (contribuyente != null) {
+            deleteContribuyente(contribuyente);
+        }
+    }
 
-    public static void deleteContribuyente(Contribuyente contribuyente) {
+    public static void deleteContribuyente(Contribuyente contribuyente) { // Por id y por cedula
         String sql = "DELETE FROM Facturas WHERE contribuyente_id = ?";
         ConexionADataBase.executeUpdate(sql, contribuyente.getId());
 
-        sql = "DELETE FROM Contribuyentes WHERE id = ?";
-        ConexionADataBase.executeUpdate(sql, contribuyente.getId());
+        sql = "DELETE FROM Contribuyentes WHERE cedula = ?";
+        ConexionADataBase.executeUpdate(sql, contribuyente.getCedula());
     }
 
     public static int getLastContribuyenteId() { // problem

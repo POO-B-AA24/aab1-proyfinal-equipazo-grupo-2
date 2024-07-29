@@ -1,0 +1,33 @@
+REPORTE DE IMPUESTOS:
+***
+Estimado/aNicolas Gallegos
+Direccion: Zamora
+Cedula: 1615826391
+------------ DECLARACION INGRESOS ------------
+Total de ingresos: 146424.81254417868
+➖ Total de gastos: 91301.45691782536
+➖ Aporte al IESS:
+16765.64103630846
+-------------------------------------------------
+Sus ingresos netos (sin impuestos) son: 38357.71459004487
+***
+------------ PAGO DE IMPUESTOS ------------
+Total de impuestos: 3494.9429180089733
+Sus ingresos netos (debitando impuestos) son: 34862.771672035895
+➖ Total de deducciones: 3293.7224901261725
+-------------------------------------------------
+Sus ingresos pre-FINALES (con impuestos y deducciones): 38156.49416216207
+***
+-------------------------------------------------
+Deducciones adicionales (Contempla 🥩BENEFICIOS TRIBUTARIOS🥩 para: Empleados, Inversores y Reembolsos):
+Credito tributario o devolucion (por dividendos Corporativos, para Inversor):
+20.0
+Devolucion por Excedente de impuestos: (Ingresos netos negativos para persona Natural):
+0.0
+Subsidio tributario (por contribuir al IESS): 
+16765.64103630846
+-------------------------------------------------
+-------------------------------------------------
+Total de Impuesto a pagar: $181.22042788280078
+Nota: INGRESOS FINALES son: Sus ingresos ➖ Sus gastos ➖ Impuestos totales
+Sus ingresos FINALES (contempla todo anteriormente en este reporte) 38176.49416216207
