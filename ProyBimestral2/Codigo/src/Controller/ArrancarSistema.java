@@ -33,10 +33,13 @@ public class ArrancarSistema {
         }
         //Todo eso desde SQL
         // Retrieve Contribuyente and Factura data from the database. Oh yeah!
-
-        ArrayList<Contribuyente> usuariosDesdeDB = new ArrayList<>(); // esto es solo para leer al final desde la base de datos
-
-        OperacionesContribuyente.leerTodosLosContribuyentesDesdeDB();
+        ArrayList<Contribuyente> usuariasos = OperacionesContribuyente.leerTodosLosContribuyentesDesdeDB();
+        
+        for (Contribuyente contribuyente : usuariasos) {
+            System.out.println(contribuyente);
+//            System.out.println(GeneradorDatos.generarDecision().equalsIgnoreCase("Si") ? contribuyente.getMensaje() : ".");
+            System.out.println(contribuyente.getMensaje());
+        }
     }
 
 }

@@ -1,0 +1,33 @@
+REPORTE DE IMPUESTOS:
+***
+Estimado/aAlejandro Alvarrez
+Direccion: Guayaquil
+Cedula: 2446477662
+------------ DECLARACION INGRESOS ------------
+Total de ingresos: 145158.48676137027
+➖ Total de gastos: 118244.92151183134
+➖ Aporte al IESS:
+0.0
+-------------------------------------------------
+Sus ingresos netos (sin impuestos) son: 26913.565249538922
+***
+------------ PAGO DE IMPUESTOS ------------
+Total de impuestos: 1547.3347874308383
+Sus ingresos netos (debitando impuestos) son: 25366.230462108084
+➖ Total de deducciones: 4620.57063278558
+-------------------------------------------------
+Sus ingresos pre-FINALES (con impuestos y deducciones): 29986.801094893664
+***
+-------------------------------------------------
+Deducciones adicionales (Contempla 🥩BENEFICIOS TRIBUTARIOS🥩 para: Empleados, Inversores y Reembolsos):
+Credito tributario o devolucion (por dividendos Corporativos, para Inversor):
+0.0
+Devolucion por Excedente de impuestos: (Ingresos netos negativos para persona Natural):
+0.0
+Subsidio tributario (por contribuir al IESS): 
+0.0
+-------------------------------------------------
+-------------------------------------------------
+Total de Impuesto a pagar: $0.0
+Nota: INGRESOS FINALES son: Sus ingresos ➖ Sus gastos ➖ Impuestos totales
+Sus ingresos FINALES (contempla todo anteriormente en este reporte) 26913.565249538922

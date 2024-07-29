@@ -61,7 +61,7 @@ public class OperacionesContribuyente {
         return contribuyenteId;
     }
 
-    private static String convertArrayToString(double[] array) {
+    public static String convertArrayToString(double[] array) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < array.length; i++) {
             sb.append(array[i]);
@@ -106,7 +106,7 @@ public class OperacionesContribuyente {
             System.out.println(contribuyente);
         }
     }*/
-    public static void leerTodosLosContribuyentesDesdeDB() {
+    public static ArrayList<Contribuyente> leerTodosLosContribuyentesDesdeDB() {
         ArrayList<Contribuyente> usuarios = new ArrayList<>();
         String sql = "SELECT c.id, c.nombre, c.sueldosMensuales, c.direccion, c.cedula, c.reporte, c.mensaje "
                 + "FROM Contribuyentes c";
@@ -136,11 +136,7 @@ public class OperacionesContribuyente {
             System.err.println("Error retrieving data from the database: " + e.getMessage());
         }
 
-        for (Contribuyente contribuyente : usuarios) {
-            System.out.println(contribuyente);
-//            System.out.println(GeneradorDatos.generarDecision().equalsIgnoreCase("Si") ? contribuyente.getMensaje() : ".");
-            System.out.println(contribuyente.getMensaje());
-        }
+        return usuarios;
     }
 
     private static double[] convertStringToArray(String sueldosMensualesString) {
@@ -183,9 +179,34 @@ public class OperacionesContribuyente {
 
         // If the contribuyente is not found in the usuarios list, create a new one
         Contribuyente newContribuyente = new Contribuyente(contribuyenteId, nombre, new double[0], "", "");
-        //usuarios.add(newContribuyente);
         return newContribuyente;
     }
+
+public static Contribuyente buscarContribuyentePorCedula(String cedula) {
+    String sql = "SELECT * FROM Contribuyentes WHERE cedula = ?";
+    try (Connection connection = ConexionADataBase.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setString(1, cedula);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                int contribuyenteId = resultSet.getInt("id");
+                String nombre = resultSet.getString("nombre");
+                String sueldosMensualesString = resultSet.getString("sueldosMensuales");
+                double[] sueldosMensuales = convertStringToArray(sueldosMensualesString);
+                String direccion = resultSet.getString("direccion");
+                String reporte = resultSet.getString("reporte");
+                String mensaje = resultSet.getString("mensaje");
+                Contribuyente contrib = new Contribuyente(contribuyenteId, nombre, sueldosMensuales, direccion, cedula);
+                contrib.setReporte(reporte);
+                contrib.setMensaje( mensaje);
+                return contrib;
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error retrieving Contribuyente from the database: " + e.getMessage());
+    }
+    return null;
+}
+
 
     public static void deleteContribuyente(Contribuyente contribuyente) {
         String sql = "DELETE FROM Facturas WHERE contribuyente_id = ?";

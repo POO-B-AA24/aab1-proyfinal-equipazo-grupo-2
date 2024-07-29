@@ -1,0 +1,33 @@
+REPORTE DE IMPUESTOS:
+***
+Estimado/aNicolas Gallegos
+Direccion: Esmeraldas
+Cedula: 0501377777
+------------ DECLARACION INGRESOS ------------
+Total de ingresos: 145658.40196538315
+➖ Total de gastos: 123605.04760705361
+➖ Aporte al IESS:
+16677.887025036373
+-------------------------------------------------
+Sus ingresos netos (sin impuestos) son: 5375.467333293167
+***
+------------ PAGO DE IMPUESTOS ------------
+Total de impuestos: 0.0
+Sus ingresos netos (debitando impuestos) son: 5375.467333293167
+➖ Total de deducciones: 5696.91743949307
+-------------------------------------------------
+Sus ingresos pre-FINALES (con impuestos y deducciones): 11072.384772786238
+***
+-------------------------------------------------
+Deducciones adicionales (Contempla 🥩BENEFICIOS TRIBUTARIOS🥩 para: Empleados, Inversores y Reembolsos):
+Credito tributario o devolucion (por dividendos Corporativos, para Inversor):
+0.0
+Devolucion por Excedente de impuestos: (Ingresos netos negativos para persona Natural):
+0.0
+Subsidio tributario (por contribuir al IESS): 
+16677.887025036373
+-------------------------------------------------
+-------------------------------------------------
+Total de Impuesto a pagar: $0.0
+Nota: INGRESOS FINALES son: Sus ingresos ➖ Sus gastos ➖ Impuestos totales
+Sus ingresos FINALES (contempla todo anteriormente en este reporte) 5375.467333293167

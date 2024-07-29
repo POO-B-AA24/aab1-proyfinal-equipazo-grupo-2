@@ -52,7 +52,6 @@ public abstract class Factura implements GastoCalculable, Serializable {
         StringBuilder sb = new StringBuilder();
         sb.append("Factura #" + i);
         sb.append("\n monto=").append(monto);
-        sb.append("Descuento= ").append(discount);
         sb.append("\n contribuyenteId=").append(contribuyenteId); //once tests have finished. Exclude this from toString()
         sb.append('}');
         return sb.toString();
